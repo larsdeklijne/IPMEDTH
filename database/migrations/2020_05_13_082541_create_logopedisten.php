@@ -14,16 +14,15 @@ class CreateLogopedisten extends Migration
     public function up()
     {
         Schema::create('logopedisten', function (Blueprint $table) {
-            $table->increments('id')->unsigned();
+            $table->bigIncrements('id');
             $table->string('voornaam');
             $table->string('tussenvoegsel');
             $table->string('achternaam');
             $table->string('wachtwoord');
+            $table->text('locaties');
             $table->string('email')->unique();
-
             $table->timestamps();
         });
-
     }
 
     /**
