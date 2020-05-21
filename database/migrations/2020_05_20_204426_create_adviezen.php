@@ -18,7 +18,7 @@ class CreateAdviezen extends Migration
             $table->unsignedBigInteger('patient_id');
             $table->text('advies');
             $table->text('beknopt_advies');
-            $table->boolean('zichtbaar');
+            $table->boolean('zichtbaar')->default(0);
 
             $table->foreign('patient_id')->references('id')->on('patienten');
         });
