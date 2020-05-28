@@ -20,3 +20,13 @@ Route::get('/', function () {
 // Logopedisten routes
 Route::get('/logopedist/index', 'LogopedistenController@index');
 Route::get('/logopedist/get/{id}', 'LogopedistenController@get');
+Route::post('/logopedist/add', 'LogopedistenController@add');
+
+// Patienten routes
+Route::get('/patient/index', 'PatientController@index');
+Route::get('/patient/get/{id}', 'PatientController@get');
+Route::post('/patient/add', 'PatientController@add');
+
+// Logopedisten routes misschien nodig??
+//Route::get('/logopedist/delete/{id}', 'LogopedistenController@delete');
+
