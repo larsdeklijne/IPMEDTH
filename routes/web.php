@@ -23,9 +23,9 @@ Route::get('/logopedist/get/{id}', 'LogopedistenController@get');
 Route::post('/logopedist/add', 'LogopedistenController@add');
 
 // Patienten routes
-Route::get('/patient/index', 'PatientController@index');
-Route::get('/patient/get/{id}', 'PatientController@get');
-Route::post('/patient/add', 'PatientController@add');
+Route::get('/patient/index', 'PatientenController@index');
+Route::get('/patient/get/{id}', 'PatientenController@get');
+Route::post('/patient/add', 'PatientenController@add');
 
 // Logopedisten routes misschien nodig??
 //Route::get('/logopedist/delete/{id}', 'LogopedistenController@delete');
