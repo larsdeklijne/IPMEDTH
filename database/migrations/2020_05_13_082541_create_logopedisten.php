@@ -16,7 +16,7 @@ class CreateLogopedisten extends Migration
         Schema::create('logopedisten', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('voornaam');
-            $table->string('tussenvoegsel');
+            $table->string('tussenvoegsel')->nullable();
             $table->string('achternaam');
             $table->string('wachtwoord');
             $table->text('locaties');

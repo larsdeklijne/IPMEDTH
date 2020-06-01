@@ -43,7 +43,7 @@ class TestData extends Seeder
             'id' => rand(1, 100),
             'patient_id' => $patientId,
             'advies' => Str::random(10),
-            'beknopt_advies' => Hash::make('wachtwoord'),
+            'beknopt_advies' => Str::random(5),
             'zichtbaar' => 0,
         ]);
 
