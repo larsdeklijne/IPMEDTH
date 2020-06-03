@@ -2,17 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
+// Laravel homepage
 Route::get('/', function () {
     return view('welcome');
 });
@@ -27,10 +18,12 @@ Route::get('/patient/index', 'PatientenController@index');
 Route::get('/patient/get/{id}', 'PatientenController@get');
 Route::post('/patient/add', 'PatientenController@add');
 
-// Patienten routes
+// Advies routes
 Route::get('/advies/get/{id}', 'AdviesController@get');
 Route::post('/advies/add', 'AdviesController@add');
 
-// Logopedisten routes misschien nodig??
+
+
+// Logopedisten delete routes eventueel nodig
 //Route::get('/logopedist/delete/{id}', 'LogopedistenController@delete');
 
