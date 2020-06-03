@@ -8,6 +8,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/test', function () {
+    return view('welcome');
+});
+
 // Logopedisten routes
 Route::get('/logopedist/index', 'LogopedistenController@index');
 Route::get('/logopedist/get/{id}', 'LogopedistenController@get');
