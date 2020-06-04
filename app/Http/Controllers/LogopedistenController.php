@@ -23,7 +23,8 @@ class LogopedistenController extends Controller
                         ->first();
 
         //return $logopedist;
-        return response()->json(['name' => 'Abigail', 'state' => 'CA']);
+        //return response()->json(['name' => 'Abigail', 'state' => 'CA']);
+        return response()->json($logopedist);
     }
 
     public function add(Request $request)
