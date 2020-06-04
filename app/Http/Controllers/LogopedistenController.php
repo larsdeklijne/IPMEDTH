@@ -12,6 +12,8 @@ class LogopedistenController extends Controller
     {
         $alleLogopedisten = DB::table('logopedisten')->get();
 
+        dd($alleLogopedisten);
+
     }
 
     public function get($id)
