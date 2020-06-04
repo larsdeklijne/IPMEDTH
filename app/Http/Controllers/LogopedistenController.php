@@ -35,7 +35,7 @@ class LogopedistenController extends Controller
         $locaties = 'Den Haag';
         $email = $request->input('email');
 
-        return response()->json($voornaam, $achternaam, $wachtwoord, $locaties, $email);
+        return response()->json(['voornaam' => $voornaam, 'achternaam' => $achternaam, 'wachtwoord' => $wachtwoord, 'locaties' => $locaties, 'email' => $email]);
     }
 
     /*
