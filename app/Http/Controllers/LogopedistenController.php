@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Validator;
 use App\Logopedist;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -12,8 +13,7 @@ class LogopedistenController extends Controller
     {
         $alleLogopedisten = DB::table('logopedisten')->get();
 
-        dd($alleLogopedisten);
-
+        return response()->json([$alleLogopedisten]);
     }
 
     public function get($id)
@@ -22,20 +22,63 @@ class LogopedistenController extends Controller
                         ->where('id', $id)
                         ->first();
 
-        //return $logopedist;
-        //return response()->json(['name' => 'Abigail', 'state' => 'CA']);
-        return response()->json($logopedist);
+        return response()->json([$logopedist]);
     }
 
     public function add(Request $request)
     {
-        $logopedist = new Logopedist;
+        // Velden logopedist
+        // voornaam, tussenvoegsel, achternaam, wachtwoord, locaties, email
+        // verplichte velden: voornaam, achternaam, wachtwoord, locaties, email
 
-        $logopedist->voornaam = $request->input('voornaam');
-        $logopedist->achternaam = $request->input('achternaam');
-        $logopedist->wachtwoord = $request->input('wachtwoord');
-        $logopedist->locaties = 'Den Haag';
-        $logopedist->email = $request->input('email');
+        // locaties komt binnen als array
+        // transformeer naar string gescheiden door kommas tussen de locaties
+        
+        $locaties = 'den-haag';
+        //$locatiesArray = $request->input('locaties');
+        //$locaties = implode(",", $locatiesArray);
+
+        // velden die verplicht zijn voor logopedist, dus moeten ze gevalidate worden
+        $veldenUitRequest = array(
+            'voornaam' => $request->input('voornaam'),
+            'achternaam' => $request->input('achternaam'),
+            'wachtwoord' => $request->input('wachtwoord'),
+            'locaties' => $locaties,
+            'email' => $request->input('email')
+        );
+
+        json_encode($veldenUitRequest);
+
+        $validator = Validator::make($veldenUitRequest, [
+            'voornaam' => 'required|string|max:255',
+            'achternaam' => 'required|string|max:255',
+            'wachtwoord' => 'required|string|email|max:255',
+            'locaties' => 'required|string|max:255',
+            'email' => 'required|email|max:255'
+        ]);
+
+        if($validator->fails()){
+            return response()->json($validator->errors()->toJson(), 400);
+        }
+
+        // tussenvoegsel is niet verplicht
+        // als tussenvoegsel niet voorkomt in het request, maak er een empty string van
+        if(null !== $request->input('tussenvoegsel')){
+            $tussenvoegsel = $request->input('tussenvoegsel');
+        } else {
+            $tussenvoegsel = '';
+        }
+
+        $logopedist = Logopedist::create([
+            'voornaam' => $request->input('voornaam'),
+            'tussenvoegesel' => $tussenvoegsel,
+            'achternaam' => $request->input('achternaam'),
+            'wachtwoord' => $request->input('wachtwoord'),
+            'locaties' => $request->input('locaties'),
+            'email' => $request->input('email')
+        ]);
+
+        return response()->json(compact('logopedist'), 201);
 
         $logopedist->save();
     }
