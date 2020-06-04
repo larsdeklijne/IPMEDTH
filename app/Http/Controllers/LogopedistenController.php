@@ -29,13 +29,15 @@ class LogopedistenController extends Controller
 
     public function add(Request $request)
     {
-        $voornaam = $request->input('voornaam');
-        $achternaam = $request->input('achternaam');
-        $wachtwoord = $request->input('wachtwoord');
-        $locaties = 'Den Haag';
-        $email = $request->input('email');
+        $logopedist = new Logopedist;
 
-        return response()->json(['voornaam' => $voornaam, 'achternaam' => $achternaam, 'wachtwoord' => $wachtwoord, 'locaties' => $locaties, 'email' => $email]);
+        $logopedist->voornaam = $request->input('voornaam');
+        $logopedist->achternaam = $request->input('achternaam');
+        $logopedist->wachtwoord = $request->input('wachtwoord');
+        $logopedist->locaties = 'Den Haag';
+        $logopedist->email = $request->input('email');
+
+        $logopedist->save();
     }
 
     /*
