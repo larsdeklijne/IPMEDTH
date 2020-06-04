@@ -22,7 +22,8 @@ class LogopedistenController extends Controller
                         ->where('id', $id)
                         ->first();
 
-        dd($logopedist);
+        //return $logopedist;
+        return response()->json(['name' => 'Abigail', 'state' => 'CA']);
     }
 
     public function add(Request $request)
