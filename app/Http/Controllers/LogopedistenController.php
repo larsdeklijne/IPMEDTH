@@ -29,27 +29,9 @@ class LogopedistenController extends Controller
 
     public function add(Request $request)
     {
-        // logopedisten fields
-        // voornaam
-        // tussenvoegsel
-        // achternaam
-        // wachtwoord
-        // locaties
-        // email
+        $voornaam = $request->input('voornaam');
 
-        echo "test";
-        die;
-        
-        $logopedist = Logopedist::create([
-            'voornaam' => 'Lars',
-            'tussenvoegsel' => 'de',
-            'achternaam' => 'Klijne', 
-            'wachtwoord' => 'ditisgeheim',
-            'locaties' => 'Leiden',
-            'email' => 't222@gmail.com'
-        ]);
-
-        $logopedist->save();
+        return response()->json($voornaam);
     }
 
     /*
