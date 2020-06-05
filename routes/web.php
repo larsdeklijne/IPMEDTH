@@ -12,6 +12,13 @@ Route::get('/test', function () {
     return view('welcome');
 });
 
+// Authenitcation routes
+Route::group(['prefix' => 'api'], function()
+{
+    Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
+    Route::post('authenticate', 'AuthenticateController@authenticate');
+});
+
 // Logopedisten routes
 Route::get('/logopedist/index', 'LogopedistenController@index');
 Route::get('/logopedist/get/{id}', 'LogopedistenController@get');
