@@ -27,8 +27,7 @@ Route::post('/logopedist/add', 'LogopedistenController@add');
 // Patienten routes
 Route::get('/patient/index', 'PatientenController@index');
 Route::get('/patient/get/{id}', 'PatientenController@get');
-
-//Route::get('/patient/login/{patient_nummer}/{password}', 'PatientenController@checkCredentials');
+Route::post('/patient/add', 'PatientenController@add');
 Route::post('/patient/login', 'PatientenController@login');
 
 //Route::post('/patient/add', 'PatientenController@add');
