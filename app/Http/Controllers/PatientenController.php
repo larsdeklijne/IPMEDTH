@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use App\Patienten;
 use DB;
 
 class PatientenController extends Controller
@@ -26,30 +29,72 @@ class PatientenController extends Controller
     public function add(Request $request)
     {
         // patienten fields
-            // id
             // patient_nummer
             // geboortedatum
             // locaties
             // wachtwoord
-        
+
+        // velden die verplicht zijn voor patienten, dus moeten ze gevalidate worden
+        $veldenUitRequest = array(
+            'patient_nummer' => $request->input('patient_nummer'),
+            'geboortedatum' => $request->input('geboortedatum'),
+            'locaties' => $request->input('locaties'),
+            'wachtwoord' => $request->input('wachtwoord'),
+        );
+
+        json_encode($veldenUitRequest);
+
+        $validator = Validator::make($veldenUitRequest, [
+            'patient_nummer' => 'required|integer',
+            'geboortedatum' => 'required|date',
+            'locaties' => 'required|string|max:255',
+            'wachtwoord' => 'required|string|max:255',
+        ]);
+
+        if($validator->fails()){
+            return response()->json($validator->errors()->toJson(), 400);
+        }
+
+        // haal wachtwoord uit request
+        // hash het meegegeven wachtwoord
+        $wachtwoord = $request->input('wachtwoord');
+        $gehaste_wachtwoord = Hash::make($wachtwoord);
+
+        $patient = Patienten::create([
+            'patient_nummer' => $request->input('patient_nummer'),
+            'geboortedatum' => $request->input('geboortedatum'),
+            'locaties' => $request->input('locaties'),
+            'wachtwoord' => $request->input('wachtwoord'),
+            'gehaste_wachtwoord' => $gehaste_wachtwoord
+        ]);
+
+        $patient->save();
+
+        return response()->json($patient);
     }
 
     public function login(Request $request)
     {
         $patient_nummer = $request->input('patient_nummer');
-        $wachtwoord = $request->input('wachtwoord');
+        $requestWachtwoord = $request->input('wachtwoord');
 
-        $result = DB::table('patienten')
-            ->where('patient_nummer' , $patient_nummer)
-            ->where('wachtwoord', $wachtwoord)
+        $patient = DB::table('patienten')
+            ->where('patient_nummer', $patient_nummer)
             ->first();
 
-        if(isset($result)){
-            $resultArray = [$patient_nummer, $wachtwoord];
-            return response()->json([$resultArray]);
+        if(isset($patient)){
+            $databaseWachtwoord = $patient->wachtwoord;
+
+            if (Hash::check($requestWachtwoord, $databaseWachtwoord)) {
+                return response()->json([$requestWachtwoord, $databaseWachtwoord]);
+            } else {
+                return response()->json('This password does not exist', 400);
+            }
+
         } else {
             return response('This user does not exist', 400);
         }
+       
     }
 
 
