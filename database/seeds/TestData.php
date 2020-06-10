@@ -30,7 +30,7 @@ class TestData extends Seeder
             'patient_nummer' => rand(1000, 5000),
             'geboortedatum' => '8/8/8',
             'locaties' => 'Zoetermeer, leiden',
-            'wachtwoord' => Hash::make('wachtwoord'),
+            'wachtwoord' => 'test',
         ]);
 
         DB::table('logopedisten_patienten')->insert([
