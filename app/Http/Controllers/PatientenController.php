@@ -48,7 +48,7 @@ class PatientenController extends Controller
             $resultArray = [$patient_nummer, $wachtwoord];
             return response()->json([$resultArray]);
         } else {
-            return reponse('This user does not exist', 400);
+            return response('This user does not exist', 400);
         }
     }
 
