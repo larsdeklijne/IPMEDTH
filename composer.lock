@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cce063bbb5c538eecf2f290b084fd83c",
+    "content-hash": "5924de2aa2d428570818996bd9c5ded9",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4159,7 +4159,7 @@
         },
         {
             "name": "tymon/jwt-auth",
-            "version": "1.0.0",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tymondesigns/jwt-auth.git",
@@ -6406,7 +6406,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "tymon/jwt-auth": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
