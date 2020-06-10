@@ -83,12 +83,14 @@ class PatientenController extends Controller
             ->first();
 
         if(isset($patient)){
-            $databaseWachtwoord = $patient->wachtwoord;
+            // haal gehaste wachtwoord op  van patient uit database
+            $databaseWachtwoord = $patient->gehaste_wachtwoord;
 
+            // check of het wachtwoord gehast is en klopt
             if (Hash::check($requestWachtwoord, $databaseWachtwoord)) {
                 return response()->json([$requestWachtwoord, $databaseWachtwoord]);
             } else {
-                return response()->json('This password does not exist', 400);
+                return response()->json('This password doest not exist by this user', 400);
             }
 
         } else {
