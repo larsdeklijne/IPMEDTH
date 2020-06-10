@@ -10,6 +10,8 @@ class PatientenController extends Controller
     public function index()
     {
         $allePatienten = DB::table('patienten')->get();
+
+        return response()->json([$allePatienten]);
     }
 
     public function get($id)
@@ -18,7 +20,7 @@ class PatientenController extends Controller
                         ->where('id', $id)
                         ->first();
 
-        dd($patient);
+        return response()->json([$patient]);
     }
 
     public function add(Request $request)
