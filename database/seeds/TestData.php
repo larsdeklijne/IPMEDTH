@@ -20,7 +20,7 @@ class TestData extends Seeder
             'voornaam' => Str::random(10),
             'tussenvoegsel' => 'de',
             'achternaam' => Str::random(10),
-            'wachtwoord' => Hash::make('wachtwoord'),
+            'password' => Hash::make('password'),
             'locaties' => 'Zoetermeer, leiden',
             'email' => Str::random(10).'@gmail.com',
         ]);
