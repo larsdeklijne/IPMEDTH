@@ -83,6 +83,18 @@ class LogopedistenController extends Controller
         $logopedist->save();
     }
 
+    public function checkCredentials()
+    {
+        $email = $request->input('email');
+        $wachtwoord = $request->input('password');
+
+        
+
+
+    }
+
+
+
     /*
         public function delete($id)
         {

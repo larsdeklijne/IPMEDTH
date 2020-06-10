@@ -34,6 +34,36 @@ class PatientenController extends Controller
         
     }
 
+    public function login(Request $request)
+    {
+        $patient_nummer = $request->input('patient_nummer');
+        $wachtwoord = $request->input('wachtwoord');
+
+        $result = DB::table('patienten')
+            ->where('patient_nummer' , $patient_nummer)
+            ->where('wachtwoord', $wachtwoord)
+            ->first();
+
+        if(isset($result)){
+            $resultArray = [$patient_nummer, $wachtwoord];
+            return response()->json([$resultArray]);
+        } else {
+            return reponse('This user does not exist', 400);
+        }
+    }
+
+
+
+    public function checkCredentials()
+    {
+        $email = $request->input('email');
+        $wachtwoord = $request->input('password');
+
+        
+
+
+    }
+
     /*
         public function delete($id)
         {
