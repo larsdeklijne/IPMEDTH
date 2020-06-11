@@ -18,7 +18,7 @@ class Seeder2 extends Seeder
             'tussenvoegsel' => 'de',
             'achternaam' => 'Jong',
             'password' => Hash::make('password'),
-            'locaties' => 'Den-haag',
+            'locatie' => 'Den-haag',
             'email' => 'jandejong@gmail.com',
         ]);
         
@@ -27,7 +27,7 @@ class Seeder2 extends Seeder
             'id' => 4,
             'patient_nummer' => rand(1000, 5000),
             'geboortedatum' => '1997/5/8',
-            'locaties' => 'Den-haag',
+            'locatie' => 'Den-haag',
             'wachtwoord' => Hash::make('password'),
         ]);
 
@@ -42,7 +42,7 @@ class Seeder2 extends Seeder
             'id' => 5,
             'patient_nummer' => rand(1000, 5000),
             'geboortedatum' => '1992/5/8',
-            'locaties' => 'Den-haag',
+            'locatie' => 'Den-haag',
             'wachtwoord' => Hash::make('password'),
         ]);
 
@@ -57,7 +57,7 @@ class Seeder2 extends Seeder
             'id' => 6,
             'patient_nummer' => rand(1000, 5000),
             'geboortedatum' => '200/2/8',
-            'locaties' => 'Den-haag',
+            'locatie' => 'Den-haag',
             'wachtwoord' => Hash::make('password'),
         ]);
 
