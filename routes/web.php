@@ -19,7 +19,7 @@ Route::group(['prefix' => 'api'], function()
     Route::post('authenticate', 'AuthenticateController@authenticate');
 });
 
-Route::get('/checkIfAuthenticated', 'AuthenticationController@checkIfAuthenticated')->middleware('checkToken');
+Route::get('/checkIfAuthenticated', 'AuthenticateController@checkIfAuthenticated')->middleware('checkToken');
 
 
 // alle requesten waarbij er data opgevraagd of verstuurd wordt
