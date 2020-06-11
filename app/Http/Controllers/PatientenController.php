@@ -26,6 +26,17 @@ class PatientenController extends Controller
         return response()->json([$patient]);
     }
 
+    public function getLocatie(Request $request)
+    {
+        $locatie = $request->route('locatie');
+
+        $patienten = DB::table('patienten')
+                        ->where('locatie', $locatie)
+                        ->get();
+
+        return response()->json([$patienten]);
+    }
+
     public function add(Request $request)
     {
         // patienten fields

@@ -16,22 +16,23 @@ Route::get('/test', function () {
 Route::group(['prefix' => 'api'], function()
 {
     Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
+
+    // route:: localhost/api/authenticate
     Route::post('authenticate', 'AuthenticateController@authenticate');
 });
 
 Route::get('/checkIfAuthenticated', 'AuthenticateController@checkIfAuthenticated')->middleware('checkToken');
 
-
-// alle requesten waarbij er data opgevraagd of verstuurd wordt
-
 // Logopedisten routes
 Route::get('/logopedist/index', 'LogopedistenController@index')->middleware('checkToken');
 Route::get('/logopedist/get/{id}', 'LogopedistenController@get')->middleware('checkToken');
+Route::get('/logopedist/getlocatie/{locatie}', 'LogopedistenController@getLocatie')->middleware('checkToken');
 Route::post('/logopedist/add', 'LogopedistenController@add')->middleware('checkToken');
 
 // Patienten routes
 Route::get('/patient/index', 'PatientenController@index')->middleware('checkToken');
 Route::get('/patient/get/{id}', 'PatientenController@get')->middleware('checkToken');
+Route::get('/patient/getlocatie/{locatie}', 'PatientenController@getLocatie')->middleware('checkToken');
 Route::post('/patient/add', 'PatientenController@add')->middleware('checkToken');
 Route::post('/patient/login', 'PatientenController@login')->middleware('checkToken');
 

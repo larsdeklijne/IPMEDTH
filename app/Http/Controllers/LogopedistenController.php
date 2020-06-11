@@ -26,6 +26,17 @@ class LogopedistenController extends Controller
         return response()->json([$logopedist]);
     }
 
+    public function getLocatie(Request $request)
+    {
+        $locatie = $request->route('locatie');
+
+        $logopedisten = DB::table('logopedisten')
+                        ->where('locatie', $locatie)
+                        ->get();
+
+        return response()->json([$logopedisten]);
+    }
+
     public function add(Request $request)
     {
         // Velden logopedist
