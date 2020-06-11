@@ -19,23 +19,24 @@ Route::group(['prefix' => 'api'], function()
     Route::post('authenticate', 'AuthenticateController@authenticate');
 });
 
+Route::get('/checkIfAuthenticated', 'AuthenticationController@checkIfAuthenticated');
 
-    // Logopedisten routes
-    Route::get('/logopedist/index/', 'LogopedistenController@index')->middleware('checkToken');
-    Route::get('/logopedist/get/{id}', 'LogopedistenController@get');
-    Route::post('/logopedist/add', 'LogopedistenController@add');
+// Logopedisten routes
+Route::get('/logopedist/index', 'LogopedistenController@index')->middleware('checkToken');
+Route::get('/logopedist/get/{id}', 'LogopedistenController@get')->middleware('checkToken');
+Route::post('/logopedist/add', 'LogopedistenController@add')->middleware('checkToken');
 
-    // Patienten routes
-    Route::get('/patient/index', 'PatientenController@index');
-    Route::get('/patient/get/{id}', 'PatientenController@get');
-    Route::post('/patient/add', 'PatientenController@add');
-    Route::post('/patient/login', 'PatientenController@login');
+// Patienten routes
+Route::get('/patient/index', 'PatientenController@index')->middleware('checkToken');
+Route::get('/patient/get/{id}', 'PatientenController@get')->middleware('checkToken');
+Route::post('/patient/add', 'PatientenController@add')->middleware('checkToken');
+Route::post('/patient/login', 'PatientenController@login')->middleware('checkToken');
 
-    //Route::post('/patient/add', 'PatientenController@add');
+//Route::post('/patient/add', 'PatientenController@add');
 
-    // Advies routes
-    Route::get('/advies/get/{id}', 'AdviesController@get');
-    Route::post('/advies/add', 'AdviesController@add');
+// Advies routes
+Route::get('/advies/get/{id}', 'AdviesController@get');
+Route::post('/advies/add', 'AdviesController@add');
 
 
 
