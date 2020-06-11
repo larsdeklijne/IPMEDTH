@@ -99,18 +99,6 @@ class PatientenController extends Controller
        
     }
 
-
-
-    public function checkCredentials()
-    {
-        $email = $request->input('email');
-        $wachtwoord = $request->input('password');
-
-        
-
-
-    }
-
     /*
         public function delete($id)
         {
