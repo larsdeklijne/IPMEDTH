@@ -22,7 +22,7 @@ class TestData extends Seeder
             'achternaam' => Str::random(10),
             'password' => Hash::make('password'),
             'locaties' => 'Zoetermeer, leiden',
-            'email' => Str::random(10).'@gmail.com',
+            'email' => 'test@gmail.com',
         ]);
 
         DB::table('patienten')->insert([
