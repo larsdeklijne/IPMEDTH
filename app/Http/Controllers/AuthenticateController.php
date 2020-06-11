@@ -23,6 +23,7 @@ class AuthenticateController extends Controller
         // Retrieve all the users in the database and return them
         $logopedisten = Logopedist::all();
         return $logopedisten;
+
     }
 
     public function authenticate(Request $request)

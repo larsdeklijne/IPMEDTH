@@ -9,11 +9,15 @@ use DB;
 
 class LogopedistenController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+
+        return $request;
+        die;
+        
         $alleLogopedisten = DB::table('logopedisten')->get();
 
-        return response()->json([$alleLogopedisten]);
+        return response()->json([$token]);
     }
 
     public function get($id)
