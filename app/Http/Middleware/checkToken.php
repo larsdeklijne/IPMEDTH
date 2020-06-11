@@ -20,11 +20,11 @@ class checkToken
                 return response()->json(['user_not_found'], 404);
             }
         } catch (TokenExpiredException $e) {
-            return response()->json(['token_expired'], 500);
+            return response()->json(['error' => 'token_expired'], 403);
         } catch (TokenInvalidException $e) {
-            return response()->json(['token_invalid'], 500);
+            return response()->json(['error' => 'token_invalid'], 403);
         } catch (JWTException $e) {
-            return response()->json(['token_absent'], 500);
+            return response()->json(['error' => 'token_absent'], 403);
         }
 
         return $next($request);
