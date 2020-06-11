@@ -21,6 +21,9 @@ Route::group(['prefix' => 'api'], function()
 
 Route::get('/checkIfAuthenticated', 'AuthenticationController@checkIfAuthenticated');
 
+
+// alle requesten waarbij er data opgevraagd of verstuurd wordt
+
 // Logopedisten routes
 Route::get('/logopedist/index', 'LogopedistenController@index')->middleware('checkToken');
 Route::get('/logopedist/get/{id}', 'LogopedistenController@get')->middleware('checkToken');
