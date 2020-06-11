@@ -20,16 +20,12 @@ class checkToken
                 return response()->json(['user_not_found'], 404);
             }
         } catch (TokenExpiredException $e) {
-            return response()->json(['token_expired']);
+            return response()->json(['token_expired'], 500);
         } catch (TokenInvalidException $e) {
-            return response()->json(['token_invalid']);
+            return response()->json(['token_invalid'], 500);
         } catch (JWTException $e) {
-            return response()->json(['token_absent']);
+            return response()->json(['token_absent'], 500);
         }
-
-        //return ['error' => false, 'token' => JWTAuth::getToken()];
-
-        //$request->merge(['authenticated' => $authenticated]);
 
         return $next($request);
     }
