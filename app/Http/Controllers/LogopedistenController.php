@@ -11,13 +11,10 @@ class LogopedistenController extends Controller
 {
     public function index(Request $request)
     {
-
-        return $request;
-        die;
         
         $alleLogopedisten = DB::table('logopedisten')->get();
 
-        return response()->json([$token]);
+        return response()->json([$alleLogopedisten]);
     }
 
     public function get($id)

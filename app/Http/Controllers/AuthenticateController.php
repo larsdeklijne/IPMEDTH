@@ -43,4 +43,12 @@ class AuthenticateController extends Controller
         // if no errors are encountered we can return a JWT
         return response()->json(compact('token'));
     }
+
+    public function checkIfAuthenticated(Request $request) 
+    {
+        // functie wordt alleen aangeroepen als de token valid is,
+        // als de token niet valid is wordt het request afgevangen in de try catch van de middleware
+        
+        return true;
+    }
 }
