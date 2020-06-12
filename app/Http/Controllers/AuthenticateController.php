@@ -6,6 +6,7 @@ use App\Http\Requests;
 use JWTAuth;
 use Tymon\JWTAuthExceptions\JWTException;
 use App\Logopedist;
+use DB;
 
 class AuthenticateController extends Controller
 {
@@ -40,8 +41,12 @@ class AuthenticateController extends Controller
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
 
+        $ingelogteLogopedist = DB::table('logopedisten')
+                                ->where('email', $request->input('email'))
+                                ->first();
+
         // if no errors are encountered we can return a JWT
-        return response()->json(compact('token'));
+        return response()->json(['token' => $token, 'ingelogteLogopedist' => $ingelogteLogopedist]);
     }
 
     public function checkIfAuthenticated(Request $request) 
