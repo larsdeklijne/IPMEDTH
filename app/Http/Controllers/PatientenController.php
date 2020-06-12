@@ -34,7 +34,11 @@ class PatientenController extends Controller
                         ->where('locatie', $locatie)
                         ->get();
 
-        return response()->json([$patienten]);
+        $logopedisten = DB::table('logopedisten')
+                        ->where('locatie', $locatie)
+                        ->get();
+
+        return response()->json(['patienten' => $patienten, 'logopedisten' => $logopedisten]);
     }
 
     public function add(Request $request)
