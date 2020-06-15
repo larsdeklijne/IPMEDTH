@@ -33,12 +33,27 @@ class PatientenController extends Controller
         $patienten = DB::table('patienten')
                         ->where('locatie', $locatie)
                         ->get();
+        
+        $patientenEnLogopedisten = [];
+        
+        for($i = 0; $i < count($patienten); $i++) {
+            $patient = $patienten[$i];
 
-        $logopedisten = DB::table('logopedisten')
-                        ->where('locatie', $locatie)
-                        ->get();
+            $logopedisten_patienten = DB::table('logopedisten_patienten')
+                        ->where('patient_id', $patient->id)
+                        ->first();
 
-        return response()->json(['patienten' => $patienten, 'logopedisten' => $logopedisten]);
+            $logopedistId = $logopedisten_patienten->logopedist_id;
+
+            $gekoppeldeLogopedist = DB::table('logopedisten')
+                                ->where('id', $logopedistId)
+                                ->first();
+
+            $patientenEnLogopedisten[$i]["patient"] = $patient;
+            $patientenEnLogopedisten[$i]['logopedist'] = $gekoppeldeLogopedist;
+        }
+
+        return response()->json(['patienten_en_gekoppelde_logopedisten' => $patientenEnLogopedisten]);
     }
 
     public function add(Request $request)
