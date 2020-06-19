@@ -65,13 +65,13 @@ class AdviesController extends Controller
     {
         // validation om ervoor te zorgen dat patient_id wordt meegegeven
         $veldenUitRequest = array(
-            'id' => $request->input('id'),
+            'patient_id' => $request->input('patient_id'),
         );
 
         json_encode($veldenUitRequest);
 
         $validator = Validator::make($veldenUitRequest, [
-            'id' => 'required|integer',
+            'patient_id' => 'required|integer',
         ]);
 
         if($validator->fails()){
@@ -79,23 +79,21 @@ class AdviesController extends Controller
         }
 
         // zet de velden uit de request om in variabele
-        $id = $request->input('id');
         $patient_id = $request->input('patient_id');
         $advies = $request->input('advies');
         $beknopt_advies = $request->input('beknopt_advies');
         $zichtbaar = $request->input('zichtbaar');
 
         // haal advies op uit database
-        Adviezen::where('id', $id)
+        Adviezen::where('patient_id', $patient_id)
             ->update([
-                'patient_id' => $patient_id,
                 'advies' => $advies,
                 'beknopt_advies' => $beknopt_advies,
                 'zichtbaar' => $zichtbaar
             ]);
 
         $advies = DB::table('adviezen')
-            ->where('id', $id)
+            ->where('patient_id', $patient_id)
             ->first();
         
         if($advies->advies = $advies) {
