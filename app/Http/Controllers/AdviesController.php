@@ -16,7 +16,7 @@ class AdviesController extends Controller
                     ->where('id', $id)
                     ->first();
 
-        dd($advies);
+        return $advies;
     }
 
     public function add(Request $request)
@@ -61,10 +61,10 @@ class AdviesController extends Controller
         return $advies;
     }
 
-    /*
-        public function delete($id)
-        {
-            
-        }
-    */
+    public function delete($id)
+    {
+        $advies = DB::table('adviezen')
+                    ->where('id', $id)
+                    ->delete();
+    }
 }

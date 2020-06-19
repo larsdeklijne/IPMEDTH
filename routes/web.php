@@ -36,11 +36,10 @@ Route::get('/patient/getlocatie/{locatie}', 'PatientenController@getLocatie')->m
 Route::post('/patient/add', 'PatientenController@add')->middleware('checkToken');
 Route::post('/patient/login', 'PatientenController@login')->middleware('checkToken');
 
-//Route::post('/patient/add', 'PatientenController@add');
-
 // Advies routes
-Route::get('/advies/get/{id}', 'AdviesController@get');
-Route::post('/advies/add', 'AdviesController@add');
+Route::get('/advies/get/{id}', 'AdviesController@get')->middleware('checkToken');
+Route::post('/advies/add', 'AdviesController@add')->middleware('checkToken');
+Route::get('/advies/delete/{id}', 'AdviesController@delete')->middleware('checkToken');
 
 // Logopedisten delete routes eventueel nodig
 //Route::get('/logopedist/delete/{id}', 'LogopedistenController@delete');
