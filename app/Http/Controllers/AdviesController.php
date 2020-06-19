@@ -97,9 +97,9 @@ class AdviesController extends Controller
             ->first();
         
         if($advies->advies = $advies) {
-            return 'hij is geupdate';
+            return response()->json('update = true');
         } else {
-            return 'hij is niet geupdate';
+            return response()->json('update = false');
         }
         
     }
