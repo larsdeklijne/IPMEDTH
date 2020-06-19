@@ -26,6 +26,21 @@ class PatientenController extends Controller
         return response()->json([$patient]);
     }
 
+    // route die alle patienten ophaalt van een bepaalde locatie
+    // uiteindelijk retourneert de route 1 array, met daarin voor alle patienten het volgende:
+    // patient:{
+    //     data:{
+    //         //patient data
+    //     },
+    //     logopedist:{
+    //         //logopedist data
+    //     },
+    //     advies:{
+    //         //advies data
+    //     }
+    // }
+    // voor alle patienten worden de bijbehorende logopedist en advies opgehaald
+
     public function getLocatie(Request $request)
     {
         $locatie = $request->route('locatie');
@@ -33,27 +48,37 @@ class PatientenController extends Controller
         $patienten = DB::table('patienten')
                         ->where('locatie', $locatie)
                         ->get();
+
+        // transformeer $patienten (laravel collection) naar normale PHP array
+        // zodat array verder gemanipuleert en bewerkt kan worden
+        $patientenArray = $patienten->toArray();
         
-        $patientenEnLogopedisten = [];
-        
-        for($i = 0; $i < count($patienten); $i++) {
+        for($i = 0; $i < count($patientenArray); $i++) {
             $patient = $patienten[$i];
 
+            // haal waardes op uit bijbehorende koppeltabel
             $logopedisten_patienten = DB::table('logopedisten_patienten')
                         ->where('patient_id', $patient->id)
                         ->first();
 
             $logopedistId = $logopedisten_patienten->logopedist_id;
 
+            // haal logopedist op die gekoppeld is aan patient
             $gekoppeldeLogopedist = DB::table('logopedisten')
                                 ->where('id', $logopedistId)
-                                ->first();
+                                ->get()
+                                ->toArray();
 
-            $patientenEnLogopedisten[$i]["patient"] = $patient;
-            $patientenEnLogopedisten[$i]['logopedist'] = $gekoppeldeLogopedist;
+            $adviesPatient = DB::table('adviezen')
+                            ->where('patient_id', $patient->id)
+                            ->get()
+                            ->toArray();
+
+            $patientenArray[$i]->logopedist = $gekoppeldeLogopedist;
+            $patientenArray[$i]->advies = $adviesPatient;
         }
 
-        return response()->json(['patienten_en_gekoppelde_logopedisten' => $patientenEnLogopedisten]);
+        return $patientenArray;
     }
 
     public function add(Request $request)

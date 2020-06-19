@@ -41,6 +41,7 @@ Route::post('/patient/login', 'PatientenController@login')->middleware('checkTok
 // Advies routes
 Route::get('/advies/get/{id}', 'AdviesController@get');
 Route::post('/advies/add', 'AdviesController@add');
+Route::post('/advies/add', 'AdviesController@add');
 
 
 
