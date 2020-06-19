@@ -40,6 +40,7 @@ Route::post('/patient/login', 'PatientenController@login')->middleware('checkTok
 Route::get('/advies/get/{id}', 'AdviesController@get')->middleware('checkToken');
 Route::post('/advies/add', 'AdviesController@add')->middleware('checkToken');
 Route::get('/advies/delete/{id}', 'AdviesController@delete')->middleware('checkToken');
+Route::post('/advies/update', 'AdviesController@update')->middleware('checkToken');
 
 // Logopedisten delete routes eventueel nodig
 //Route::get('/logopedist/delete/{id}', 'LogopedistenController@delete');
