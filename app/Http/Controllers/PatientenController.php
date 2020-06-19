@@ -17,13 +17,34 @@ class PatientenController extends Controller
         return response()->json([$allePatienten]);
     }
 
-    public function get($id)
+    public function get($patient_nummer)
     {
         $patient = DB::table('patienten')
-                        ->where('id', $id)
-                        ->first();
+                        ->where('patient_nummer', $patient_nummer)
+                        ->get()
+                        ->toArray();
+        
+        // haal waardes op uit bijbehorende koppeltabel
+        $logopedisten_patienten = DB::table('logopedisten_patienten')
+            ->where('patient_id', $patient[0]->id)
+            ->first();
 
-        return response()->json([$patient]);
+        // haal logopedist op die gekoppeld is aan patient
+        $gekoppeldeLogopedist = DB::table('logopedisten')
+                ->where('id', $logopedisten_patienten->logopedist_id)
+                ->get()
+                ->toArray();
+
+        // haal advies op van de patient
+        $adviesPatient = DB::table('adviezen')
+            ->where('patient_id', $patient[0]->id)
+            ->get()
+            ->toArray();
+
+        $patient[0]->logopedist = $gekoppeldeLogopedist[0];
+        $patient[0]->advies = $adviesPatient;
+
+        return $patient;
     }
 
     // route die alle patienten ophaalt van een bepaalde locatie

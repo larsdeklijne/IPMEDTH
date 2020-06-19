@@ -31,7 +31,7 @@ Route::post('/logopedist/add', 'LogopedistenController@add')->middleware('checkT
 
 // Patienten routes
 Route::get('/patient/index', 'PatientenController@index')->middleware('checkToken');
-Route::get('/patient/get/{id}', 'PatientenController@get')->middleware('checkToken');
+Route::get('/patient/get/{patient_nummer}', 'PatientenController@get')->middleware('checkToken');
 Route::get('/patient/getlocatie/{locatie}', 'PatientenController@getLocatie')->middleware('checkToken');
 Route::post('/patient/add', 'PatientenController@add')->middleware('checkToken');
 Route::post('/patient/login', 'PatientenController@login')->middleware('checkToken');
