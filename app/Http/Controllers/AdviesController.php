@@ -63,8 +63,14 @@ class AdviesController extends Controller
 
     public function delete($id)
     {
-        $advies = DB::table('adviezen')
-                    ->where('id', $id)
-                    ->delete();
+        $advies = Adviezen::find($id);
+
+        if(isset($advies)){
+            $advies->delete();
+            return 'advies is gedelete';
+        } else {
+            return 'advies is niet gevonden';
+        }
+
     }
 }
