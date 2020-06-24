@@ -159,14 +159,32 @@ class PatientenController extends Controller
             ->first();
 
         if(isset($patient)){
+
+            $adviesDatabase = DB::table('adviezen')
+                        ->where('patient_id', $patient->id)
+                        ->first();
+
             // haal gehaste wachtwoord op  van patient uit database
             $databaseWachtwoord = $patient->wachtwoord;
+            
+            if(isset($adviesDatabase)) {
 
-            // check of het wachtwoord gehast is en klopt
-            if (Hash::check($requestWachtwoord, $databaseWachtwoord)) {
-                return response()->json(true, 200);
+                // check of het wachtwoord gehast is en klopt
+                if (Hash::check($requestWachtwoord, $databaseWachtwoord)) {
+                    return response()->json(['advies' => $adviesDatabase], 200);
+                } else {
+                    return response()->json('This password doest not exist by this user', 400);
+                }
+
             } else {
-                return response()->json('This password doest not exist by this user', 400);
+
+                // check of het wachtwoord gehast is en klopt
+                if (Hash::check($requestWachtwoord, $databaseWachtwoord)) {
+                    return response()->json('patient heeft geen advies nog', 400);
+                } else {
+                    return response()->json('This password doest not exist by this user', 400);
+                }
+
             }
 
         } else {
