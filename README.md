@@ -38,9 +38,9 @@ POST: /patient/add
 Voegt een patient toe op basis van de meegegeven waardes in het post field.
 
 Velden die meegegeven moeten worden: 
--patient_nummer
--locaties
--wachtwoord
+- patient_nummer
+- locaties
+- wachtwoord
 
 POST: /patient/login
 Route checkt of de meegegeven credetials uit het post request correct zijn en voorkomen in de database. Als ze correct zijn en voorkomen dan wordt er true geretourneerd, mocht dit niet het geval zijn dan word de error gerouterneerd.
