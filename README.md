@@ -43,7 +43,9 @@ Velden die meegegeven moeten worden:
 - wachtwoord
 
 POST: /patient/login
-Route checkt of de meegegeven credetials uit het post request correct zijn en voorkomen in de database. Als ze correct zijn en voorkomen dan wordt er true geretourneerd, mocht dit niet het geval zijn dan word de error gerouterneerd.
+Route checkt of de meegegeven credetials uit het post request correct zijn en voorkomen in de database. Als ze correct zijn en voorkomen dan wordt er true geretourneerd, mocht dit niet het geval zijn dan word de error gerouterneerd. 
+
+Als er een advies gekoppeld is aan de patient, dan wordt het advies ook gereturned in het request. 
 
 Credentials die voor moeten komen in het request:
 - Email (string)
