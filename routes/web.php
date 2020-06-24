@@ -34,7 +34,7 @@ Route::get('/patient/index', 'PatientenController@index')->middleware('checkToke
 Route::get('/patient/get/{patient_nummer}', 'PatientenController@get')->middleware('checkToken');
 Route::get('/patient/getlocatie/{locatie}', 'PatientenController@getLocatie')->middleware('checkToken');
 Route::post('/patient/add', 'PatientenController@add')->middleware('checkToken');
-Route::post('/patient/login', 'PatientenController@login')->middleware('checkToken');
+Route::post('/patient/login', 'PatientenController@login');
 
 // Advies routes
 Route::get('/advies/get/{id}', 'AdviesController@get');

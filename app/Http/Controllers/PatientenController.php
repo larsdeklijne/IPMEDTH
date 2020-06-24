@@ -160,11 +160,11 @@ class PatientenController extends Controller
 
         if(isset($patient)){
             // haal gehaste wachtwoord op  van patient uit database
-            $databaseWachtwoord = $patient->gehaste_wachtwoord;
+            $databaseWachtwoord = $patient->wachtwoord;
 
             // check of het wachtwoord gehast is en klopt
             if (Hash::check($requestWachtwoord, $databaseWachtwoord)) {
-                return response()->json([$requestWachtwoord, $databaseWachtwoord]);
+                return response()->json(true, 200);
             } else {
                 return response()->json('This password doest not exist by this user', 400);
             }
