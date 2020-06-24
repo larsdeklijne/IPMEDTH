@@ -1,79 +1,77 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+### Overzicht alle routes
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
++ ALLE routes (behalve /advies/get/{id}) werken alleen als er een token wordt meegestuurd in de header van het request. De token valt te genereren door /authenticate aan te roepen (zie uitleg bij logopedisten routes) 
 
-## About Laravel
+GET: /checkIfAuthenticated
+Route die checkt of een logopedist al ingelogt is, zo ja return true anders wordt er false gereturned.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Logopedisten routes
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+POST:: /authenticate
+Als de gebruiker nog geen token heeft wordt deze route aangeroepen. Er moet een post request gestuurd worden naar de route /authenticate met email en password. Als email en password in de database voorkomen dat wordt er een token aangemaakt en getourneerd.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+GET: /logopedist/index
+Retourneert alle logopedisten uit de database
 
-## Learning Laravel
+GET: /logopedist/get/{id}
+Retourneert een logopedist op basis van het meegegeven ID
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+GET: /logopedist/getlocatie/{locatie}
+Retourneert een array met: De logopedisten van de meegegeven locatie en per logopedist de gekoppelde patienten.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+POST: /logopedist/add
+Maakt een logopedist aan en voegt deze toe aan de database. De logopedist wordt aangemaakt op basis van de meegegeven velden uit het post request.
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### Patienten routes
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
-- [Appoly](https://www.appoly.co.uk)
-- [OP.GG](https://op.gg)
-- [云软科技](http://www.yunruan.ltd/)
+GET: /patient/index
+Retourneert alle patienten uit de database
 
-## Contributing
+GET: /patient/get/patient_nummer}
+Retourneert een patient op basis van het meegegeven patient_nummer
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+GET: /patient/getlocatie/{locatie}
+Retourneert een array met alle patienten van de meegegeven locatie, de gekoppelde logopedist en het gekoppelde advies mocht die bestaan.
 
-## Code of Conduct
+POST: /patient/add
+Voegt een patient toe op basis van de meegegeven waardes in het post field.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Velden die meegegeven moeten worden: 
+-patient_nummer
+-locaties
+-wachtwoord
 
-## Security Vulnerabilities
+POST: /patient/login
+Route checkt of de meegegeven credetials uit het post request correct zijn en voorkomen in de database. Als ze correct zijn en voorkomen dan wordt er true geretourneerd, mocht dit niet het geval zijn dan word de error gerouterneerd.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Credentials die voor moeten komen in het request:
+- Email (string)
+- password (string)
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Advies routes
+
+GET: /advies/get/{id}
+Retourneert een advies op basis van het meegegeven id
+
+POST: /advies/add
+Voegt een advies toe aan de database op basis van de meegeegven waardes uit het post request.
+
+Velden die meegegeven moeten worden in het post request:
+- patient_id (int)
+- advies (array)
+- beknopt_advies (array)
+- zichtbaar (boolean)
+
+GET: /advies/delete/{id}
+Verwijdert een advies uit de database op basis van het meegegeven ID.
+
+POST: /advies/update
+In het post request wordt het patient id meegegeven van het advies. Op basis van dit patient id wordt er een advies uit de database opgehaald. De waardes van dit advies worden geupdate met de nieuwe waardes uit het post request.
+
+Velden uit het postrequest:
+- patient_id
+- advies
+- beknopt advies
+- zichtbaar
