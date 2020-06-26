@@ -166,12 +166,13 @@ class PatientenController extends Controller
         // format in database: Y/M/D
         // format die binnenkomt: D/M/Y
         $geboortedatum = $request->input('geboortedatum');
-        return $geboortedatum;
-        
+
+        $formatGeboortedatum = date("Y-m-d", strtotime($geboortedatum));
+
         $patient = Patienten::create([
             'id' => $patient_id,
             'patient_nummer' => $request->input('patient_nummer'),
-            'geboortedatum' => $request->input('geboortedatum'),
+            'geboortedatum' => $formatGeboortedatum,
             'locatie' => $request->input('locatie'),
             'wachtwoord' => $gehaste_wachtwoord,
         ]);
