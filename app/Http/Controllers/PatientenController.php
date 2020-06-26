@@ -125,7 +125,7 @@ class PatientenController extends Controller
         $validator = Validator::make($veldenUitRequest, [
             'logopedist_id' => 'required|integer',
             'patient_nummer' => 'required|integer|unique:patienten,patient_nummer',
-            'geboortedatum' => 'required|date',
+            'geboortedatum' => 'required',
             'locatie' => 'required|string|max:255',
             'wachtwoord' => 'required|string|max:255',
         ]);
