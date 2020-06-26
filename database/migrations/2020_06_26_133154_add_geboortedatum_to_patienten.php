@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DeleteGeboortedatumPatienten2 extends Migration
+class AddGeboortedatumToPatienten extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class DeleteGeboortedatumPatienten2 extends Migration
     public function up()
     {
         Schema::table('patienten', function (Blueprint $table) {
-            $table->dropColumn('geboortedatum');
+            $table->date('geboortedatum'); 
         });
     }
 
@@ -25,6 +25,8 @@ class DeleteGeboortedatumPatienten2 extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('patienten', function (Blueprint $table) {
+            //
+        });
     }
 }
