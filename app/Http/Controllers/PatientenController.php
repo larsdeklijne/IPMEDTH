@@ -69,35 +69,55 @@ class PatientenController extends Controller
 
         $patienten = DB::table('patienten')
                         ->where('locatie', $locatie)
-                        ->get();
+                        ->get()
+                        ->toArray();
 
         // transformeer $patienten (laravel collection) naar normale PHP array
         // zodat array verder gemanipuleert en bewerkt kan worden
-        $patientenArray = $patienten->toArray();
-        
-        for($i = 0; $i < count($patientenArray); $i++) {
+        //$patientenArray = $patienten->toArray();
+
+        for($i = 0; $i < count($patienten); $i++) {
             $patient = $patienten[$i];
+
+            $geboortedatum = $patient->geboortedatum;
+            $formatGeboortedatum = date("d-m-Y", strtotime($geboortedatum));
+
+            // split string om de extra - te verwijderen
+            $formatGeboortedatum1 = substr($formatGeboortedatum, 0, 5);
+            $formatGeboortedatum2 = substr($formatGeboortedatum, -5);
+            
+            $finalGeboortedatum = $formatGeboortedatum1 . $formatGeboortedatum2;
+
+            $patienten[$i]->geboortedatum = $finalGeboortedatum;
 
             // haal waardes op uit bijbehorende koppeltabel
             $logopedisten_patienten = DB::table('logopedisten_patienten')
                         ->where('patient_id', $patient->id)
                         ->first();
 
-            $logopedistId = $logopedisten_patienten->logopedist_id;
+            if(isset($logopedisten_patienten)){
+                $logopedistId = $logopedisten_patienten->logopedist_id;
 
-            // haal logopedist op die gekoppeld is aan patient
-            $gekoppeldeLogopedist = DB::table('logopedisten')
-                                ->where('id', $logopedistId)
-                                ->get()
-                                ->toArray();
+                // haal logopedist op die gekoppeld is aan patient
+                $gekoppeldeLogopedistArray = DB::table('logopedisten')
+                                    ->where('id', $logopedistId)
+                                    ->get()
+                                    ->toArray();
 
+                $patientenArray[$i]['logopedist'] = $gekoppeldeLogopedistArray[0];
+            }
+            
             $adviesPatient = DB::table('adviezen')
                             ->where('patient_id', $patient->id)
                             ->get()
                             ->toArray();
 
-            $patientenArray[$i]->logopedist = $gekoppeldeLogopedist;
-            $patientenArray[$i]->advies = $adviesPatient;
+            if(isset($adviesPatient)) {
+                $patientenArray[$i]['advies'] = $adviesPatient;
+            }
+
+            $patientenArray[$i]['patient'] = $patient;
+
         }
 
         return $patientenArray;
@@ -139,7 +159,14 @@ class PatientenController extends Controller
         $wachtwoord = $request->input('wachtwoord');
         $gehaste_wachtwoord = Hash::make($wachtwoord);
 
+        // generate random id for patient
         $patient_id = rand(10, 1000);
+
+        // geboortedatum in juiste format zetten
+        // format in database: Y/M/D
+        // format die binnenkomt: D/M/Y
+        $geboortedatum = $request->input('geboortedatum');
+        return $geboortedatum;
         
         $patient = Patienten::create([
             'id' => $patient_id,
