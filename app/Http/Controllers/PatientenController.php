@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Patienten;
 use DB;
+use App\LogopedistenPatienten;
 
 class PatientenController extends Controller
 {
@@ -112,18 +113,20 @@ class PatientenController extends Controller
 
         // velden die verplicht zijn voor patienten, dus moeten ze gevalidate worden
         $veldenUitRequest = array(
+            'logopedist_id' => $request->input('logopedist_id'),
             'patient_nummer' => $request->input('patient_nummer'),
             'geboortedatum' => $request->input('geboortedatum'),
-            'locaties' => $request->input('locaties'),
+            'locatie' => $request->input('locatie'),
             'wachtwoord' => $request->input('wachtwoord'),
         );
 
         json_encode($veldenUitRequest);
 
         $validator = Validator::make($veldenUitRequest, [
-            'patient_nummer' => 'required|integer',
+            'logopedist_id' => 'required|integer',
+            'patient_nummer' => 'required|integer|unique:patienten,patient_nummer',
             'geboortedatum' => 'required|date',
-            'locaties' => 'required|string|max:255',
+            'locatie' => 'required|string|max:255',
             'wachtwoord' => 'required|string|max:255',
         ]);
 
@@ -136,17 +139,26 @@ class PatientenController extends Controller
         $wachtwoord = $request->input('wachtwoord');
         $gehaste_wachtwoord = Hash::make($wachtwoord);
 
+        $patient_id = rand(10, 1000);
+        
         $patient = Patienten::create([
+            'id' => $patient_id,
             'patient_nummer' => $request->input('patient_nummer'),
             'geboortedatum' => $request->input('geboortedatum'),
-            'locaties' => $request->input('locaties'),
-            'wachtwoord' => $request->input('wachtwoord'),
-            'gehaste_wachtwoord' => $gehaste_wachtwoord
+            'locatie' => $request->input('locatie'),
+            'wachtwoord' => $gehaste_wachtwoord,
         ]);
 
         $patient->save();
 
-        return response()->json($patient);
+        $logopedistenPatienten = LogopedistenPatienten::create([
+            'logopedist_id' => $request->input('logopedist_id'),
+            'patient_id' => $patient_id
+        ]);
+
+        $logopedistenPatienten->save();
+
+        return response()->json(['patient' => $patient]);
     }
 
     public function login(Request $request)

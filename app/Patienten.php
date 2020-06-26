@@ -8,5 +8,5 @@ class Patienten extends Model
 {
     protected $table = 'patienten';
 
-    protected $fillable = ['patient_nummer', 'geboortedatum', 'locaties', 'wachtwoord', 'gehaste_wachtwoord'];
+    protected $fillable = ['id','patient_nummer', 'geboortedatum', 'locatie', 'wachtwoord'];
 }
