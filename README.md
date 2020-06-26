@@ -38,6 +38,7 @@ POST: /patient/add
 Voegt een patient toe op basis van de meegegeven waardes in het post field.
 
 Velden die meegegeven moeten worden: 
+- geboortedatum
 - patient_nummer
 - locaties
 - wachtwoord
