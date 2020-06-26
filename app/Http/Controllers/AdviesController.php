@@ -17,7 +17,7 @@ class AdviesController extends Controller
                     ->first();
 
         if(isset($advies)) {
-            return response()->json($advies, 200);
+            return response()->json([$advies], 200);
         } else {
             return response()->json('advies is niet gevonden voor meegegeven ID', 400);
         }
