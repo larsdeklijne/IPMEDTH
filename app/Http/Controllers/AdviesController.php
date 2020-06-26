@@ -16,7 +16,12 @@ class AdviesController extends Controller
                     ->where('id', $id)
                     ->first();
 
-        return $advies;
+        if(isset($advies)) {
+            return response()->json($advies, 200);
+        } else {
+            return response()->json('advies is niet gevonden voor meegegeven ID', 400);
+        }
+            
     }
 
     public function add(Request $request)
