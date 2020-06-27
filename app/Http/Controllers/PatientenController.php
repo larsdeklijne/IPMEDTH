@@ -209,7 +209,7 @@ class PatientenController extends Controller
             // haal gehaste wachtwoord op  van patient uit database
             $databaseWachtwoord = $patient->wachtwoord;
             
-            if(isset($adviesDatabase)) {
+            if(!empty($adviesDatabase)) {
 
                 // check of het wachtwoord gehast is en klopt
                 if (Hash::check($requestWachtwoord, $databaseWachtwoord)) {
@@ -222,7 +222,7 @@ class PatientenController extends Controller
 
                 // check of het wachtwoord gehast is en klopt
                 if (Hash::check($requestWachtwoord, $databaseWachtwoord)) {
-                    return response()->json('patient heeft geen advies nog', 400);
+                    return response()->json('patient heeft geen advies nog', 200);
                 } else {
                     return response()->json('This password doest not exist by this user', 400);
                 }
