@@ -79,17 +79,20 @@ class PatientenController extends Controller
         for($i = 0; $i < count($patienten); $i++) {
             $patient = $patienten[$i];
 
-            $geboortedatum = $patient->geboortedatum;
-            $formatGeboortedatum = date("d-m-Y", strtotime($geboortedatum));
+            if(isset($patient->geboortedatum))
+            {
+                $geboortedatum = $patient->geboortedatum;
+                $formatGeboortedatum = date("d-m-Y", strtotime($geboortedatum));
 
-            // split string om de extra - te verwijderen
-            $formatGeboortedatum1 = substr($formatGeboortedatum, 0, 5);
-            $formatGeboortedatum2 = substr($formatGeboortedatum, -5);
-            
-            $finalGeboortedatum = $formatGeboortedatum1 . $formatGeboortedatum2;
+                // split string om de extra - te verwijderen
+                $formatGeboortedatum1 = substr($formatGeboortedatum, 0, 5);
+                $formatGeboortedatum2 = substr($formatGeboortedatum, -5);
+                
+                $finalGeboortedatum = $formatGeboortedatum1 . $formatGeboortedatum2;
 
-            $patienten[$i]->geboortedatum = $finalGeboortedatum;
-
+                $patienten[$i]->geboortedatum = $finalGeboortedatum;
+            }
+                
             // haal waardes op uit bijbehorende koppeltabel
             $logopedisten_patienten = DB::table('logopedisten_patienten')
                         ->where('patient_id', $patient->id)
@@ -122,7 +125,7 @@ class PatientenController extends Controller
 
         }
 
-        dd($patientenArray);
+       return $patientenArray;
     }
 
     public function add(Request $request)
