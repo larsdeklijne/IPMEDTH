@@ -95,6 +95,8 @@ class PatientenController extends Controller
                         ->where('patient_id', $patient->id)
                         ->first();
 
+            $patientenArray[$i]['patient'] = $patient;
+
             if(isset($logopedisten_patienten)){
                 $logopedistId = $logopedisten_patienten->logopedist_id;
 
@@ -104,9 +106,9 @@ class PatientenController extends Controller
                                     ->get()
                                     ->toArray();
 
-                $patientenArray[$i]['logopedist'] = $gekoppeldeLogopedistArray[0];
+                $patientenArray[$i]['patient']->logopedist = $gekoppeldeLogopedistArray[0];
             }
-            
+
             $adviesPatient = DB::table('adviezen')
                             ->where('patient_id', $patient->id)
                             ->get()
@@ -116,11 +118,11 @@ class PatientenController extends Controller
                 $patientenArray[$i]['advies'] = $adviesPatient;
             }
 
-            $patientenArray[$i]['patient'] = $patient;
+           
 
         }
 
-        return $patientenArray;
+        dd($patientenArray);
     }
 
     public function add(Request $request)
