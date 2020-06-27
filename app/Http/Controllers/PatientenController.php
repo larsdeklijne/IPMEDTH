@@ -79,7 +79,7 @@ class PatientenController extends Controller
         for($i = 0; $i < count($patienten); $i++) {
             $patient = $patienten[$i];
 
-            if(isset($patient->geboortedatum))
+            if(!empty($patient->geboortedatum))
             {
                 $geboortedatum = $patient->geboortedatum;
                 $formatGeboortedatum = date("d-m-Y", strtotime($geboortedatum));
@@ -90,7 +90,7 @@ class PatientenController extends Controller
                 
                 $finalGeboortedatum = $formatGeboortedatum1 . $formatGeboortedatum2;
 
-                $patienten[$i]->geboortedatum = $finalGeboortedatum;
+                $patient->geboortedatum = $finalGeboortedatum;
             }
                 
             // haal waardes op uit bijbehorende koppeltabel
@@ -120,9 +120,6 @@ class PatientenController extends Controller
             if(isset($adviesPatient)) {
                 $patientenArray[$i]['advies'] = $adviesPatient;
             }
-
-           
-
         }
 
        return $patientenArray;
