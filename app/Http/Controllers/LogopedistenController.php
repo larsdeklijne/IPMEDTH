@@ -46,7 +46,7 @@ class LogopedistenController extends Controller
         // locaties komt binnen als array
         // transformeer naar string gescheiden door kommas tussen de locaties
         
-        $locaties = 'den-haag';
+        $locatie = 'den-haag';
         //$locatiesArray = $request->input('locaties');
         //$locaties = implode(",", $locatiesArray);
 
@@ -55,7 +55,7 @@ class LogopedistenController extends Controller
             'voornaam' => $request->input('voornaam'),
             'achternaam' => $request->input('achternaam'),
             'wachtwoord' => $request->input('wachtwoord'),
-            'locaties' => $locaties,
+            'locatie' => $locatie,
             'email' => $request->input('email')
         );
 
@@ -65,7 +65,7 @@ class LogopedistenController extends Controller
             'voornaam' => 'required|string|max:255',
             'achternaam' => 'required|string|max:255',
             'wachtwoord' => 'required|string|email|max:255',
-            'locaties' => 'required|string|max:255',
+            'locatie' => 'required|string|max:255',
             'email' => 'required|email|max:255'
         ]);
 
@@ -86,7 +86,7 @@ class LogopedistenController extends Controller
             'tussenvoegesel' => $tussenvoegsel,
             'achternaam' => $request->input('achternaam'),
             'wachtwoord' => $request->input('wachtwoord'),
-            'locaties' => $request->input('locaties'),
+            'locatie' => $request->input('locaties'),
             'email' => $request->input('email')
         ]);
 
