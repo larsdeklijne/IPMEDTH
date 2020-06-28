@@ -127,8 +127,7 @@ class PatientenController extends Controller
             
         }
 
-        dd($patientenArray);
-
+        return $patientenArray;
        
     }
 
