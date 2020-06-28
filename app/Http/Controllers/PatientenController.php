@@ -100,7 +100,7 @@ class PatientenController extends Controller
 
             $patientenArray[$i]['patient'] = $patient;
 
-            if(isset($logopedisten_patienten)){
+            if(!empty($logopedisten_patienten)){
                 $logopedistId = $logopedisten_patienten->logopedist_id;
 
                 // haal logopedist op die gekoppeld is aan patient
@@ -110,19 +110,22 @@ class PatientenController extends Controller
                                     ->toArray();
 
                 $patientenArray[$i]['patient']->logopedist = $gekoppeldeLogopedistArray[0];
-            }
+            } 
 
             $adviesPatient = DB::table('adviezen')
                             ->where('patient_id', $patient->id)
                             ->get()
                             ->toArray();
 
-            if(isset($adviesPatient)) {
-                $patientenArray[$i]['advies'] = $adviesPatient;
-            }
+            if(!empty($adviesPatient)) {
+                $patientenArray[$i]['patient']->advies = $adviesPatient[0];
+            } 
+            
         }
 
-       return $patientenArray;
+        return $patientenArray;
+
+       
     }
 
     public function add(Request $request)
