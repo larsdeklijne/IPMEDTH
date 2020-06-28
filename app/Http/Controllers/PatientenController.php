@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Patienten;
+use App\Adviezen;
+use App\Logopedist;
 use DB;
 use App\LogopedistenPatienten;
 
@@ -241,11 +243,39 @@ class PatientenController extends Controller
        
     }
 
-    /*
-        public function delete($id)
-        {
+    public function delete($patient_id)
+    {
+        $patient = Patienten::find($patient_id);
+
+        if(isset($patient)){
+            // verwijder gekoppelde advies
+            $advies = DB::table('adviezen')
+                        ->where('patient_id', $patient_id)
+                        ->first();
+        
+            if(!empty($advies)) {
+                $advies_id = $advies->id;
+                $deleteAdvies = Adviezen::find($advies_id);
+                $deleteAdvies->delete();
+            }
+
+            // verwijder gekoppelde advies
+            $logopedist_patient = DB::table('logopedisten_patienten')
+                            ->where('patient_id', $patient_id)
+                            ->first();
             
+            if(!empty($logopedist_patient)){
+                $logopedist_patient_id = $logopedist_patient->id;
+                $deleteLogopedistPatient = LogopedistenPatienten::find($logopedist_patient_id);
+                $deleteLogopedistPatient->delete();
+            }
+               
+            $patient->delete();
+
+            return 'patient is gedelete';
+        } else {
+            return 'patient is niet gevonden';
         }
-    */
+    }
 
 }
