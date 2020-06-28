@@ -14,7 +14,6 @@ class checkToken
     public function handle($request, Closure $next)
     {
         //$token = $request->input('token');
-
         try {
             if (! $user = JWTAuth::parseToken()->authenticate()) {
                 return response()->json(['user_not_found'], 404);
@@ -26,6 +25,9 @@ class checkToken
         } catch (JWTException $e) {
             return response()->json(['error' => 'token_absent'], 403);
         }
+
+        // add authenticated user to array
+        $request->request->add(['user' => $user]); //add request
 
         return $next($request);
     }

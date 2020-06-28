@@ -54,6 +54,8 @@ class AuthenticateController extends Controller
         // functie wordt alleen aangeroepen als de token valid is,
         // als de token niet valid is wordt het request afgevangen in de try catch van de middleware
         
-        return true;
+       $user = $request->input('user');
+
+       return $user;
     }
 }
