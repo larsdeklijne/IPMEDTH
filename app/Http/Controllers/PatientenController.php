@@ -120,14 +120,14 @@ class PatientenController extends Controller
                             ->toArray();
 
             if(!empty($adviesPatient)) {
-                $patientenArray[$i]->advies = $adviesPatient[0];
+                $patientenArray[$i]->advies = $adviesPatient;
             } else {
                 $patientenArray[$i]->advies = [];
             }
             
         }
 
-        return $patientenArray;
+        dd($patientenArray);
 
        
     }
