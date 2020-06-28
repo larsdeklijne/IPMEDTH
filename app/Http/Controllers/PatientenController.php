@@ -110,7 +110,9 @@ class PatientenController extends Controller
                                     ->toArray();
 
                 $patientenArray[$i]['patient']->logopedist = $gekoppeldeLogopedistArray[0];
-            } 
+            } else {
+                $patientenArray[$i]['patient']->logopedist = [];
+            }
 
             $adviesPatient = DB::table('adviezen')
                             ->where('patient_id', $patient->id)
@@ -119,7 +121,9 @@ class PatientenController extends Controller
 
             if(!empty($adviesPatient)) {
                 $patientenArray[$i]['patient']->advies = $adviesPatient[0];
-            } 
+            } else {
+                $patientenArray[$i]['patient']->advies = [];
+            }
             
         }
 
