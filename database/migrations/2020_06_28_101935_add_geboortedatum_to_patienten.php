@@ -14,7 +14,7 @@ class AddGeboortedatumToPatienten extends Migration
     public function up()
     {
         Schema::table('patienten', function (Blueprint $table) {
-            $table->date('geboortedatum');
+            $table->text('geboortedatum');
         });
     }
 
