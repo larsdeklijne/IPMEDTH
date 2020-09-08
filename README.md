@@ -1,3 +1,8 @@
+Deze repository is de back-end die ik gemaakt heb voor het hoofdfaseproject IPMEDTH in jaar 3 van mijn opleiding.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Beschrijving applicatie
+
 ### Overzicht alle routes
 
 + ALLE routes (behalve /advies/get/{id}) werken alleen als er een token wordt meegestuurd in de header van het request. De token valt te genereren door /authenticate aan te roepen (zie uitleg bij logopedisten routes) 
