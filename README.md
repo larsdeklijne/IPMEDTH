@@ -1,7 +1,7 @@
 Deze repository is de back-end die ik gemaakt heb voor het hoofdfaseproject IPMEDTH in jaar 3 van mijn opleiding.
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Beschrijving applicatie
+## Beschrijving applicatie
 
 ### Overzicht alle routes
 
